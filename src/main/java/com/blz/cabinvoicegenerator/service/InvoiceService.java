@@ -1,5 +1,6 @@
 package com.blz.cabinvoicegenerator.service;
 
+import com.blz.cabinvoicegenerator.model.InvoiceSummary;
 import com.blz.cabinvoicegenerator.model.Ride;
 
 public class InvoiceService {
@@ -23,5 +24,15 @@ public class InvoiceService {
             totalFare += calculateFare(ride.getDistance(),ride.getTime());
         }
         return  totalFare;
+    }
+    //Invoice Summary
+    public InvoiceSummary calculateFares(Ride[] rides) {
+        double totalFare=0.0;
+        for(Ride ride:rides)
+        {
+            totalFare+=calculateFare(ride.getDistance(),ride.getTime());
+        }
+        System.out.println("rides : " +rides.length+" Fare : "+totalFare);
+        return new InvoiceSummary(rides.length,totalFare);
     }
 }

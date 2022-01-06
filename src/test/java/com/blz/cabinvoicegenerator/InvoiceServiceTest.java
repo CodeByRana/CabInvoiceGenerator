@@ -1,5 +1,6 @@
 package com.blz.cabinvoicegenerator;
 
+import com.blz.cabinvoicegenerator.model.InvoiceSummary;
 import com.blz.cabinvoicegenerator.model.Ride;
 import com.blz.cabinvoicegenerator.service.InvoiceService;
 import org.junit.Assert;
@@ -37,5 +38,15 @@ public class InvoiceServiceTest {
                 new Ride(0.1, 1)};
         double totalFare = invoiceService.calculateFare(rides);
         Assert.assertEquals(45, totalFare, 0.0);
+    }
+    @Test
+    public  void givenMultipleRidesCase3_whenCalculateFare_ShouldReturnAggregateTotalFare() {
+        InvoiceService invoiceService = new InvoiceService();
+        Ride[] rides = {new Ride(2.0, 5),
+                new Ride(1.0, 5),
+                new Ride(0.1, 1)};
+        InvoiceSummary expectedSummery= new InvoiceSummary(3,45);
+        InvoiceSummary actualSummery=invoiceService.calculateFares(rides);
+        Assert.assertEquals(expectedSummery,actualSummery);
     }
 }
